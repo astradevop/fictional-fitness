@@ -109,7 +109,7 @@ def get_classes(db: Session = Depends(get_db)):
 
 @app.post("/book", response_model=schemas.BookingOut)
 def book_class(booking_data: schemas.BookingCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
-    # Check if class exists
+    # Check class existence
     fitness_class = db.query(models.FitnessClass).filter(models.FitnessClass.id == booking_data.class_id).first()
     if not fitness_class:
         raise HTTPException(status_code=404, detail="Class not found")
@@ -118,7 +118,7 @@ def book_class(booking_data: schemas.BookingCreate, db: Session = Depends(get_db
     if fitness_class.booked_slots >= fitness_class.total_slots:
         raise HTTPException(status_code=400, detail="Class is full")
     
-    # Check if already booked
+    # Check already booked status
     existing_booking = db.query(models.Booking).filter(
         models.Booking.user_id == current_user.id,
         models.Booking.class_id == booking_data.class_id

@@ -20,7 +20,7 @@ def seed():
         db.add(user)
         print("Created user: test@example.com / password123")
     
-    # 2. Create some classes
+    # 2. Create classes
     if db.query(models.FitnessClass).count() == 0:
         c1 = models.FitnessClass(
             name="Yoga Flow", 
