@@ -38,48 +38,69 @@ This is a simple Booking API for a fitness studio built with Python and FastAPI.
 ## API Usage
 
 ### 1. Signup
-**cURL:**
-```bash
-curl -X POST "http://127.0.0.1:8000/signup" -H "Content-Type: application/json" -d "{\"name\": \"John Doe\", \"email\": \"john@example.com\", \"password\": \"secretpassword\"}"
-```
+- **Method:** `POST`
+- **URL:** `http://127.0.0.1:8000/signup`
+- **Body:** `raw` (JSON)
+    ```json
+    {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "password": "secretpassword"
+    }
+    ```
 
 ### 2. Login
-**cURL:**
-```bash
-curl -X POST "http://127.0.0.1:8000/login" -H "Content-Type: application/json" -d "{\"email\": \"john@example.com\", \"password\": \"secretpassword\"}"
-```
-**Response:**
-```json
-{
-  "access_token": "eyJhbG...",
-  "token_type": "bearer"
-}
-```
+- **Method:** `POST`
+- **URL:** `http://127.0.0.1:8000/login`
+- **Body:** `raw` (JSON)
+    ```json
+    {
+        "email": "john@example.com",
+        "password": "secretpassword"
+    }
+    ```
+- **Response:**
+    ```json
+    {
+        "access_token": "eyJhbG...",
+        "token_type": "bearer"
+    }
+    ```
+    *Copy the `access_token` for authenticated requests.*
 
-### 3. View Classes
-**cURL:**
-```bash
-curl -X GET "http://127.0.0.1:8000/classes"
-```
+### 3. Create Class (Authenticated)
+- **Method:** `POST`
+- **URL:** `http://127.0.0.1:8000/classes`
+- **Auth:** `Bearer Token` (Paste your access token)
+- **Body:** `raw` (JSON)
+    ```json
+    {
+        "name": "Power Yoga",
+        "start_time": "2023-11-01T10:00:00",
+        "duration": 60,
+        "total_slots": 20
+    }
+    ```
 
-### 4. Create Class (Authenticated)
-Replace `TOKEN` with your access token.
-**cURL:**
-```bash
-curl -X POST "http://127.0.0.1:8000/classes" -H "Authorization: Bearer TOKEN" -H "Content-Type: application/json" -d "{\"name\": \"Power Yoga\", \"start_time\": \"2023-11-01T10:00:00\", \"duration\": 60, "total_slots": 20}"
-```
+### 4. Get All Classes
+- **Method:** `GET`
+- **URL:** `http://127.0.0.1:8000/classes`
 
 ### 5. Book a Class (Authenticated)
-**cURL:**
-```bash
-curl -X POST "http://127.0.0.1:8000/book" -H "Authorization: Bearer TOKEN" -H "Content-Type: application/json" -d "{\"class_id\": 1}"
-```
+- **Method:** `POST`
+- **URL:** `http://127.0.0.1:8000/book`
+- **Auth:** `Bearer Token` (Paste your access token)
+- **Body:** `raw` (JSON)
+    ```json
+    {
+        "class_id": 1
+    }
+    ```
 
 ### 6. View My Bookings (Authenticated)
-**cURL:**
-```bash
-curl -X GET "http://127.0.0.1:8000/bookings" -H "Authorization: Bearer TOKEN"
-```
+- **Method:** `GET`
+- **URL:** `http://127.0.0.1:8000/bookings`
+- **Auth:** `Bearer Token` (Paste your access token)
 
 ## Project Structure
 - `main.py`: Main application and endpoints.
