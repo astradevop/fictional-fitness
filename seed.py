@@ -1,13 +1,11 @@
-from database import SessionLocal, engine
-import models
+from app.db.session import SessionLocal, engine
+from app import models
+from app.core import security
 from datetime import datetime, timedelta
-from passlib.context import CryptContext
 
 # Create tables
 models.Base.metadata.create_all(bind=engine)
-
 db = SessionLocal()
-pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
 
 def seed():
     # 1. Create a sample user
@@ -15,7 +13,7 @@ def seed():
         user = models.User(
             name="Test User", 
             email="test@example.com", 
-            password=pwd_context.hash("password123")
+            password=security.get_password_hash("password123")
         )
         db.add(user)
         print("Created user: test@example.com / password123")

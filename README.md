@@ -21,7 +21,7 @@ This is a simple Booking API for a fitness studio built with Python and FastAPI.
 
 1. **Start the Server**:
    ```bash
-   uvicorn main:app --reload
+   uvicorn app.main:app --reload
    ```
    The API will be running at `http://127.0.0.1:8000`.
 
@@ -103,8 +103,13 @@ This is a simple Booking API for a fitness studio built with Python and FastAPI.
 - **Auth:** `Bearer Token` (Paste your access token)
 
 ## Project Structure
-- `main.py`: Main application and endpoints.
-- `models.py`: Database models.
-- `schemas.py`: Pydantic models for request/response.
-- `database.py`: Database connection setup.
-- `requirements.txt`: Python dependencies.
+
+- **app/**: Main application directory.
+    - **main.py**: App initialization and router configuration.
+    - **api/**: API route handlers and dependencies.
+    - **core/**: Configuration and security logic.
+    - **db/**: Database session and engine setup.
+    - **models/**: SQLAlchemy database models.
+    - **schemas/**: Pydantic request/response schemas.
+- **seed.py**: Script to populate the database with initial data.
+- **requirements.txt**: Project dependencies.
